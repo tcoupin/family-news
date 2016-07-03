@@ -1,0 +1,30 @@
+{
+  "name": "news",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodejs ./src/js/index.js ./src/config",
+    "test": "nodejs debug ./src/js/index.js ./src/config"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "async": "^2.0.0-rc.6",
+    "body-parser": "^1.15.1",
+    "connect-mongodb-session": "^1.1.1",
+    "cookie-parser": "^1.4.3",
+    "express": "^4.14.0",
+    "express-session": "^1.13.0",
+    "extend": "^3.0.0",
+    "gridfs-storage-engine": "^0.2.4",
+    "imagemagick-stream": "^4.1.0",
+    "jade": "^1.11.0",
+    "log4js": "^0.6.37",
+    "mongodb": "^2.1.18",
+    "multer": "^1.1.0",
+    "passport": "^0.3.2",
+    "passport-google-oauth": "^1.0.0",
+    "path": "^0.12.7"
+  }
+}

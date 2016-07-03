@@ -1,0 +1,29 @@
+img.brand {
+	width: 20px;
+	height: 20px;
+}
+
+img.user {
+	width: 30px;
+	height: 30px;
+}
+
+h4.user {
+	margin: 0;
+}
+
+.navbar-nav > li > a {
+  line-height: 30px;
+}
+.navbar-header > a {
+  line-height: 30px;
+}
+
+.navbar > .container-fluid {
+	max-width: 1000px;
+}
+
+#content {
+	max-width: 900px;
+}
+

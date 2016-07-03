@@ -1,0 +1,35 @@
+extends ../../template/admin
+
+block content
+	table.table.table-responsive
+		tr
+			th
+			th Nom 
+				a(href="/admin/users/view?sortK=displayName&sortD=-1")
+					span.caret
+				a(href="/admin/users/view?sortK=displayName&sortD=1")
+					span.dropup
+						span.caret
+			th Mail
+				a(href="/admin/users/view?sortK=emails.0.value&sortD=-1")
+					span.caret
+				a(href="/admin/users/view?sortK=emails.0.value&sortD=1")
+					span.dropup
+						span.caret
+			th Suppression
+		each mUser in users
+			tr
+				td
+					if (mUser.role.indexOf("admin") == -1)
+						a(href="/admin/users/view/admin/"+mUser._id)
+							span.glyphicon.glyphicon-star-empty(aria-hidden=true)
+					else
+						a(href="/admin/users/view/unadmin/"+mUser._id)
+							span.glyphicon.glyphicon-star(aria-hidden=true)
+					|  
+					img.img-circle.user(src=mUser.photos[0].value)
+				td #{mUser.displayName}
+				td #{mUser.emails[0].value}
+				td 
+					a.btn.btn-danger(href="/admin/users/view/ban/"+mUser._id)
+						span.glyphicon.glyphicon-ban-circle(aria-hidden=true)

@@ -1,0 +1,16 @@
+extends ../../template/admin
+
+block content
+	if (users.length == 0)
+		.alert.alert-info Pas de nouvel utilisateur
+	else
+		table.table.table-responsive
+			each mUser in users
+				tr
+					td
+						img.img-circle.user(src=mUser.photos[0].value)
+					td #{mUser.displayName}
+					td #{mUser.emails[0].value}
+					td
+						a.btn.btn-success(href="/admin/users/new/"+mUser._id)
+							span.glyphicon.glyphicon-ok(aria-hidden=true)

@@ -1,0 +1,165 @@
+extends ../../template/admin
+
+block script
+	script(src="/public/js/admin_storage_view.js")
+	script(type="text/javascript").
+		var folder_id = "#{folder}"
+		var folder_name = "#{data.folders[folder].name}"
+		var data = "#{data_str}"
+
+block content
+	ol.breadcrumb
+		each pos in path
+			li
+				a(href="/admin/storage/view/"+pos._id) #{pos.name}
+		li.active #{data.folders[folder].name}
+	button.btn.btn-danger(href="#",type="button",data-toggle="modal",data-target="#deleteItem",disabled="disabled")
+		span.glyphicon.glyphicon-trash(aria-hidden=true)
+		|  Supprimer
+	.pull-right
+			.btn-group(role="group")
+				button.btn.btn-default(href="#",type="button",data-toggle="modal",data-target="#renameFolder")
+					span.glyphicon.glyphicon-pencil(aria-hidden=true)
+					|  Renommer
+				.btn-group(role="group")
+					button.btn.btn-default.dropdown-toggle(href="#",type="button",data-toggle="dropdown",aria-haspopup="true",aria-expanded="false")
+						span.glyphicon.glyphicon-plus-sign(aria-hidden=true)
+						|  Ajouter
+						span.caret
+					ul.dropdown-menu
+						if (data.folders[folder].news == undefined || data.folders[folder].news.length == 0)
+							li
+								a(href="#",data-toggle="modal",data-target="#newFolder") 
+									span.glyphicon.glyphicon-folder-open(aria-hidden=true)
+									|  Dossier
+						li
+							a(href="#",data-toggle="modal",data-target="#addImages") 
+								span.glyphicon.glyphicon-picture(aria-hidden=true)
+								|  Images
+						li
+							a(href="#",data-toggle="modal",data-target="#addVideos") 
+								span.glyphicon.glyphicon-facetime-video(aria-hidden=true)
+								|  Vidéos
+
+	table.table.table-condensed
+		thead
+			tr
+				td.col-md-1
+					input.select-item(type="checkbox",data-type="all")
+				td.col-md-1
+				td.col-md-8
+					span.dropup
+						a(href="?key=name&sens=1")
+							span.caret
+					a(href="?key=name&sens=-1")
+						span.caret
+				td.col-md-2
+					span.dropup
+						a(href="?key=date&sens=1")
+							span.caret
+					a(href="?key=date&sens=-1")
+						span.caret
+
+		tbody#folder_content
+			each item in data['folders'][folder].content
+				tr
+					td
+						if (data[item.type][item.id].news == undefined || data[item.type][item.id].news.length == 0)
+							input.select-item(type='checkbox',data-type="#{item.type}",data-id="#{item.id}")
+						else
+							input.disabled(type='checkbox')
+					td 
+						if (item.type == 'folders')
+							span.glyphicon.glyphicon-folder-open(aria-hidden=true)
+						else if (item.type == 'images')
+							span.glyphicon.glyphicon-picture(aria-hidden=true)
+						else if (item.type == 'videos')
+							span.glyphicon.glyphicon-facetime-video(aria-hidden=true)
+						else
+							span.glyphicon.glyphicon-question-sign(aria-hidden=true)
+					
+					td 
+						if (item.type == 'folders')
+							a(href="/admin/storage/view/"+item.id) #{data[item.type][item.id].name}
+						else
+							a.show-content(href="#",data-id="#{item.id}",data-type="#{item.type}") #{data[item.type][item.id].name} 
+								if (item.type == 'videos' && data.videos[item.id].files.thumbnail == undefined)
+									span.glyphicon.glyphicon-warning-sign(aria-hidden=true, data-toggle="tooltip" data-placement="right",title="Cliquer pour ajouter la miniature")				
+
+					td 
+						if (item.type == 'folders')
+							| #{data[item.type][item.id].content.length} élément(s)
+						else
+							| #{data[item.type][item.id].dateStr}
+
+
+	.modal.fade#newFolder(role="dialog")
+		.modal-dialog.modal-sm
+			.modal-content
+				.modal-header
+					h4.modal-title Créer un dossier
+				.modal-body
+					input.form-control(type="text",placeholder="Nom",name="name")
+				.modal-footer
+					button.btn.btn-default(type="button",data-dismiss="modal") Annuler
+					button.btn.btn-primary.btn-submit(type="button") Créer
+
+	.modal.fade#renameFolder(role="dialog")
+		.modal-dialog.modal-sm
+			.modal-content
+				.modal-header
+					h4.modal-title Renommer un dossier
+				.modal-body
+					input.form-control(type="text",placeholder="Nom",name="name")
+				.modal-footer
+					button.btn.btn-default(type="button",data-dismiss="modal") Annuler
+					button.btn.btn-primary.btn-submit(type="button") Modifier
+
+	.modal.fade#deleteItem(role="dialog")
+		.modal-dialog.modal-sm
+			.modal-content
+				.modal-header
+					h4.modal-title Supprimer
+				.modal-body Euh... T'es sûr ??
+				.modal-footer
+					button.btn.btn-default(type="button",data-dismiss="modal") Non
+					button.btn.btn-primary.btn-submit(type="button") Oui
+	.modal.fade#addImages(role="dialog")
+		.modal-dialog
+			.modal-content
+				.modal-header
+					h4.modal-title Ajouter des images
+				.modal-body
+					.alert.alert-danger(role="alert") Oups ça n'a pas fonctionné...
+					form
+						input(type="file",accept="image/*",multiple)
+				.modal-footer
+					.buttons
+						button.btn.btn-default(type="button",data-dismiss="modal") Non
+						button.btn.btn-primary.btn-submit(type="button") Envoyer
+					.progress
+						.progress-bar.progress-bar-info(role="progressbar",aria-valuenow="0",aria-valuemin="0" aria-valuemax="100",style="min-width: 2em;width: 0%") 0%			
+
+	.modal.fade#addVideos(role="dialog")
+		.modal-dialog
+			.modal-content
+				.modal-header
+					h4.modal-title Ajouter des vidéos
+				.modal-body
+					.alert.alert-danger(role="alert") Oups ça n'a pas fonctionné...
+					form
+						input(type="file",accept="video/mp4",multiple)
+				.modal-footer
+					.buttons
+						button.btn.btn-default(type="button",data-dismiss="modal") Non
+						button.btn.btn-primary.btn-submit(type="button") Envoyer
+					.progress
+						.progress-bar.progress-bar-info(role="progressbar",aria-valuenow="0",aria-valuemin="0" aria-valuemax="100",style="min-width: 2em;width: 0%") 0%			
+
+
+	.modal.fade#showContent(role="dialog")
+		.modal-dialog
+			.modal-content
+				.modal-header
+				.modal-body
+				.modal-footer

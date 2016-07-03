@@ -1,0 +1,11 @@
+extends ../template/error.jade
+
+block var
+	- var level = "info"
+
+block alert-title
+	span.glyphicon.glyphicon-fire
+	|  Oups
+
+block alert-detail
+	| #{detail}

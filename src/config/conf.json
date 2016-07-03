@@ -1,0 +1,12 @@
+{
+	"port":"4000",
+	"view": {
+		"title": "news-project",
+		"baseUrl": "http://127.0.0.1:4000"
+	},
+	"google":{
+		"client_id": "YOUR_GOOGLE_CLIENT_ID",
+		"client_secret": "YOUR_GOOGLE_CLIENT_SECRET"
+	},
+	"mongodb":"mongodb://127.0.0.1:27017/news"
+}

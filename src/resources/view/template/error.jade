@@ -1,0 +1,12 @@
+extends ./main.jade
+
+block css
+	link(href="/public/css/error.css", rel="stylesheet")
+	
+block body
+	block var
+	.alert(role="alert", class="alert-"+level)
+		h1 
+			block alert-title
+		h3 
+			block alert-detail

@@ -1,0 +1,13 @@
+extends ../template/error.jade
+
+block var
+	- var level = "warning"
+
+block alert-title
+	span.glyphicon.glyphicon-hourglass
+block alert-detail
+	| Inscription enregistrée, <br>en attente de validation...<br><br>
+	h4(align="right")
+		a.alert-link(href="/login/logout")
+			| Se déconnecter 
+			span.glyphicon.glyphicon-log-out(aria-hidden=true)

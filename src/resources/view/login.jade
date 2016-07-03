@@ -1,0 +1,10 @@
+extends ./template/main.jade
+
+block css
+	link(href="/public/css/login.css", rel="stylesheet")
+block body
+	.container#connexion
+		h3 #{title} 
+			small Connexion
+		a.google(href="/login/auth/google"+(path!==undefined?"?path="+path:""))
+			img(src="/public/img/btn_google_signin_light_normal_web.png")
