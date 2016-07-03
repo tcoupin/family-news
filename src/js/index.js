@@ -15,13 +15,13 @@ var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 ///////////////////////////////////////////////////////////
 
 
-var confPath = path.resolve(process.cwd(),process.argv[2] || './src/config');
-console.log("Configuration Path : "+confPath);
+var confFile = path.resolve(process.cwd(),process.argv[2] || './src/config/conf.json');
+console.log("Configuration Path : "+confFile);
 
 
 var LOGGER=require("log4js").getLogger("main");
 LOGGER.info("Début du log");
-global.conf = JSON.parse(fs.readFileSync(confPath+"/conf.json"));
+global.conf = JSON.parse(fs.readFileSync(confFile));
 
 
 var User = require('./model/users');

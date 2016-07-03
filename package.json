@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodejs ./src/js/index.js ./src/config",
-    "test": "nodejs debug ./src/js/index.js ./src/config"
+    "start": "node ./src/js/index.js ./src/config/conf.json",
+    "test": "node debug ./src/js/index.js ./src/config/conf.json"
   },
   "author": "",
   "license": "ISC",

@@ -1,0 +1,12 @@
+app:
+  build: .
+  links:
+    - mongo
+  volumes:
+    - ./:/usr/src/app
+    - ./myconf:/usr/src/app/myconf
+  ports:
+    - "4000:4000"
+  command: "node src/js/index.js ./myconf/conf.json"
+mongo:
+  image: mongo
