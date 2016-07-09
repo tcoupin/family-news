@@ -3,13 +3,7 @@ function createFolder(name){
 	$.post(
 		"/admin/storage/folders/"+folder_id+"/"+name+"?time="+Date.now(),
 		function(data){
-			if (sessionStorage.getItem("from") !== null){
-				var newlocation = sessionStorage.getItem("from");
-				sessionStorage.removeItem("from")
-				window.location = newlocation
-			} else {
-				window.location.reload();
-			}
+			window.location.reload();
 		},
 		"json"
 	);
@@ -72,13 +66,7 @@ function sendVideo(){
         contentType: false,
         processData: false,
         success:function(data){
-			if (sessionStorage.getItem("from") !== null){
-				var newlocation = sessionStorage.getItem("from");
-				sessionStorage.removeItem("from")
-				window.location = newlocation
-			} else {
-				window.location.reload();
-			}
+			window.location.reload();
         },
         error: function(data){
             $("#addVideos .alert").show();
@@ -123,13 +111,7 @@ function sendImage(){
         contentType: false,
         processData: false,
         success:function(data){
-			if (sessionStorage.getItem("from") !== null){
-				var newlocation = sessionStorage.getItem("from");
-				sessionStorage.removeItem("from")
-				window.location = newlocation
-			} else {
-				window.location.reload();
-			}
+			window.location.reload();
         },
         error: function(data){
             $("#addImages .alert").show();

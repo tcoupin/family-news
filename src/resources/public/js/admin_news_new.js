@@ -25,7 +25,6 @@ function setInputData(type){
 }
 
 $(function(){
-	sessionStorage.setItem("from","/admin/news/new");
   	$('[data-toggle="popover"]').popover({html:true});
 
   	$("#dataFolder").hide();
