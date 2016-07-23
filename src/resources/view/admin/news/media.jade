@@ -1,0 +1,40 @@
+extends ../../template/admin
+
+block script
+	script(type="text/javascript")
+		| var rootId = "#{rootId}"
+	script(src="/public/js/admin_news_media.js")
+
+block content
+	button.btn.btn-primary.pull-right(data-toggle="modal",data-target="#addContent")
+		span.glyphicon.glyphicon-plus-sign(aria-hidden=true)
+		|  Ajouter
+	br
+	hr
+	.row
+		each item in news.content
+			.col-lg-2.col-md-2.col-sm-3.col-xs-4.thumb
+				.thumbnail(href="#",data-id="#{item.id}",data-type="#{item.type}")
+					.square
+						img.img-responsive.full-width(src="/files/#{item.type}/#{item.id}/thumbnail",alt="")
+					.content-name
+						if (item.type == 'images')
+							span.glyphicon.glyphicon-picture(aria-hidden=true)
+						else if (item.type == 'videos')
+							span.glyphicon.glyphicon-facetime-video(aria-hidden=true)
+						.pull-right
+							button.btn.btn-danger.btn-xs.remove-content(type="button",data-id="#{item.id}",data-type="#{item.type}")
+								span.glyphicon.glyphicon-trash(aria-hidden=true)
+							
+	.modal.fade#addContent(role="dialog")
+		.modal-dialog.modal-lg
+			.modal-content
+				.modal-header
+					h4.modal-title Ajouter des medias
+				.modal-body
+					.progress
+						.progress-bar.progress-bar-striped.active(role="progressbar",aria-valuenow="100",aria-valuemin="0",aria-valuemax="100",style="width: 100%")
+				.modal-footer
+					button.btn.btn-default(type="button",data-dismiss="modal") Annuler
+					button.btn.btn-primary.btn-submit(type="button") Ajouter
+

@@ -1,0 +1,27 @@
+ol.breadcrumb
+	each pos in path
+		li
+			a.set-folder(href="#",data-id="#{pos._id}") #{pos.name}
+	li.active #{data.folders[folder].name}
+
+.row
+	each item in data['folders'][folder].content 
+		.col-lg-2.col-md-2.col-sm-3.col-xs-4.thumb
+			a.thumbnail(href="#",class=(item.type=='folders')?"set-folder":"content",data-id="#{item.id}",data-type="#{item.type}")
+				.square
+					if (item.type == 'folders')
+						img.img-responsive.full-width(src="data:image/bmp;base64,Qk06AAAAAAAAADYAAAAoAAAAAQAAAAEAAAABABgAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAA9fX1AA==",alt="")
+					else if (item.type == 'images')
+						img.img-responsive.full-width(src="/files/images/#{item.id}/thumbnail",alt="")
+					else if (item.type == 'videos')
+						img.img-responsive.full-width(src="/files/videos/#{item.id}/thumbnail",alt="")
+				.content-name
+					if (item.type == 'folders')
+						span.glyphicon.glyphicon-folder-open(aria-hidden=true)
+						|  #{data[item.type][item.id].name}
+					else if (item.type == 'images')
+						span.glyphicon.glyphicon-picture(aria-hidden=true)
+					else if (item.type == 'videos')
+						span.glyphicon.glyphicon-facetime-video(aria-hidden=true)
+
+				
