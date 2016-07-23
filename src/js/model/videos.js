@@ -69,6 +69,51 @@ Videos.setThumbnail = function(id,file_id,callback){
 	);
 }
 
+Videos.addNews = function(id,id_news,callback){
+	LOGGER.debug("addNews",id,id_news);
+
+	async.waterfall(
+		[
+			function(done){
+				mongodb.MongoClient.connect(conf.mongodb, done);			
+			},
+			function(db,done){
+				LOGGER.trace("Ajout du lien");
+				db.collection(COLLECTION_NAME).updateOne(
+					{"_id": new mongodb.ObjectId(id)},
+					{"$addToSet":{"news": id_news}},
+					function(err,results){
+						done(err);
+					}
+				);
+			}
+		],
+		callback
+	);
+}
+
+Videos.removeNews = function(id,id_news,callback){
+	LOGGER.debug("removeNews",id,id_news);
+
+	async.waterfall(
+		[
+			function(done){
+				mongodb.MongoClient.connect(conf.mongodb, done);			
+			},
+			function(db,done){
+				LOGGER.trace("Ajout du lien");
+				db.collection(COLLECTION_NAME).updateOne(
+					{"_id": new mongodb.ObjectId(id)},
+					{"$pull":{"news": id_news}},
+					function(err,results){
+						done(err);
+					}
+				);
+			}
+		],
+		callback
+	);
+}
 
 Videos.get = function(id,callback){
 	if ((typeof id) == 'string' && id.length != 24){

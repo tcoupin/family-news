@@ -151,21 +151,7 @@ Folders.addContent = function(id,content,callback){
 		db.collection(COLLECTION_NAME).updateOne(
 			{_id: new mongodb.ObjectId(id)},
 			{$addToSet: {content: content}},
-			function(err){
-				if (err){callback(err);return;}
-				Folders.get(id,function(err,doc){
-					if (doc.news === undefined || doc.news.length ==0){
-						callback();return
-					}
-					async.each(
-						doc.news,
-						function(item,done){
-							Messages.new({news:item,action:"new_content", type:content.type,content_id:content.id},done);
-						},
-						callback
-					);
-				})
-			}
+			callback
 		)
 	});	
 }

@@ -1,1 +1,97 @@
 extends ../../template/admin
+
+block script
+	script(src="/public/js/admin_news.js")
+
+block content
+	button.btn.btn-primary.pull-right(data-toggle="modal",data-target="#newNews")
+		span.glyphicon.glyphicon-plus-sign(aria-hidden=true)
+		|  Ajouter
+	br
+	hr
+	each itnews in news
+		.row
+			.media.col-sm-11
+				.media-left
+					if (itnews.content != undefined && itnews.content.length != 0)
+						img.thumbnail(src="/files/"+itnews.content[0].type+"/"+itnews.content[0].id+"/thumbnail")
+				.media-body
+					h4 #{itnews.title} - 
+						small #{itnews.timestampStr}
+
+					if (itnews.badge.comments != 0)
+						span.badge
+							span.glyphicon.glyphicon-comment(aria-hidden=true)
+							if (itnews.badge.comments == -1)
+								|  
+								span.glyphicon.glyphicon-minus-sign(aria-hidden=true)
+							else
+								|  #{itnews.badge.comments}
+					if (itnews.badge.images != 0)
+						span.badge
+							span.glyphicon.glyphicon-picture(aria-hidden=true)
+							|  #{itnews.badge.images}
+					if (itnews.badge.videos != 0)
+						span.badge
+							span.glyphicon.glyphicon-facetime-video(aria-hidden=true)
+							|  #{itnews.badge.videos}
+
+					br
+					.news-text #{itnews.text}
+			.col-sm-1.dropdown
+				a(href="#").btn.btn-default.dropdown-toggle(data-toggle="dropdown",aria-haspopup="true",aria-expanded="true")
+					span.glyphicon.glyphicon-option-vertical(aria-hidden=true)
+				ul.dropdown-menu
+					li
+						a.update-news(href="#",data-id="#{itnews._id}") Modifier
+					li
+						a(href="news/"+itnews._id+"/media") Gérer les médias
+					if (itnews.comment)
+						li
+							a(href="news/"+itnews._id+"/comment") Gérer les commentaires
+					li.divider(role="separator")
+					li
+						a.delete-news(href="#",data-id="#{itnews._id}") Supprimer
+		hr
+
+	nav.text-center
+		ul.pagination
+			each page, index in pages
+				li(class=(page.active==true?'active':''))
+					a(href="?start="+page.start) #{index+1}
+
+
+	.modal.fade#newNews(role="dialog")
+		.modal-dialog
+			form.modal-content(method="POST",action="news/new")
+				.modal-header
+					h4.modal-title News
+				.modal-body
+					.form-horizontal
+						.form-group
+							label.control-label.col-sm-3(for="inputTitle") Titre
+							.col-sm-9
+								input.form-change.form-control#inputTitle(type="text", name="title",required,placeholder="Le titre de la news") 
+						.form-group
+							label.control-label.col-sm-3(for="inputText") Texte
+							.col-sm-9
+								textarea.form-change.form-control#inputText(type="text", name="text", placeholder="Un texte optionnel",rows="3")
+						.form-group
+							label.control-label.col-sm-3(for="inputComment") Commentaires
+							.col-sm-9.checkbox
+								label
+									input.form-change#inputComment(type="checkbox",name="comment",checked="checked")
+									| Autoriser
+				.modal-footer
+					button.btn.btn-default(type="button",data-dismiss="modal") Annuler
+					button.btn.btn-primary.btn-submit(type="submit") Créer
+
+	.modal.fade#deleteNews(role="dialog")
+		.modal-dialog.modal-sm
+			.modal-content
+				.modal-header
+					h4.modal-title Supprimer
+				.modal-body Euh... T'es sûr ??
+				.modal-footer
+					button.btn.btn-default(type="button",data-dismiss="modal") Non
+					button.btn.btn-danger.btn-submit(type="button") Oui

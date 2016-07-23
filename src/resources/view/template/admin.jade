@@ -15,7 +15,7 @@ block body
 				a.navbar-brand(href="/admin") Admin
 			.navbar-collapse.collapse#navbar
 				ul.nav.navbar-nav
-					li.dropdown 
+					//li.dropdown 
 						a.dropdown-toggle(data-toggle="dropdown",role="button",aria-haspopup="true",aria-expanded="false") News
 							span.caret
 						ul.dropdown-menu
@@ -23,6 +23,8 @@ block body
 								a(href="/admin/news/new") Créer
 							li
 								a(href="/admin/news/view") Gérer
+					li
+						a(href="/admin/news") News	
 					li.dropdown 
 						a.dropdown-toggle(data-toggle="dropdown",role="button",aria-haspopup="true",aria-expanded="false") Stockage
 							span.caret

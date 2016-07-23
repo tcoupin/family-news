@@ -11,7 +11,7 @@ block content
 	ol.breadcrumb
 		each pos in path
 			li
-				a(href="/admin/storage/view/"+pos._id) #{pos.name}
+				a(href=pos._id) #{pos.name}
 		li.active #{data.folders[folder].name}
 	button.btn.btn-danger(href="#",type="button",data-toggle="modal",data-target="#deleteItem",disabled="disabled")
 		span.glyphicon.glyphicon-trash(aria-hidden=true)
@@ -27,11 +27,10 @@ block content
 						|  Ajouter
 						span.caret
 					ul.dropdown-menu
-						if (data.folders[folder].news == undefined || data.folders[folder].news.length == 0)
-							li
-								a(href="#",data-toggle="modal",data-target="#newFolder") 
-									span.glyphicon.glyphicon-folder-open(aria-hidden=true)
-									|  Dossier
+						li
+							a(href="#",data-toggle="modal",data-target="#newFolder") 
+								span.glyphicon.glyphicon-folder-open(aria-hidden=true)
+								|  Dossier
 						li
 							a(href="#",data-toggle="modal",data-target="#addImages") 
 								span.glyphicon.glyphicon-picture(aria-hidden=true)
@@ -80,7 +79,7 @@ block content
 					
 					td 
 						if (item.type == 'folders')
-							a(href="/admin/storage/view/"+item.id) #{data[item.type][item.id].name}
+							a(href=item.id) #{data[item.type][item.id].name}
 						else
 							a.show-content(href="#",data-id="#{item.id}",data-type="#{item.type}") #{data[item.type][item.id].name} 
 								if (item.type == 'videos' && data.videos[item.id].files.thumbnail == undefined)
@@ -123,7 +122,7 @@ block content
 				.modal-body Euh... T'es sûr ??
 				.modal-footer
 					button.btn.btn-default(type="button",data-dismiss="modal") Non
-					button.btn.btn-primary.btn-submit(type="button") Oui
+					button.btn.btn-danger.btn-submit(type="button") Oui
 	.modal.fade#addImages(role="dialog")
 		.modal-dialog
 			.modal-content

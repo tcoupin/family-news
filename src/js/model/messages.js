@@ -14,12 +14,14 @@ mongodb.MongoClient.connect(conf.mongodb, function(err, db) {
 
 var Messages = {};
 
-Messages.new = function(msg,callback){
+Messages.new = function(msg){
 	LOGGER.debug("new");
 	mongodb.MongoClient.connect(conf.mongodb, function(err, db) {
-		if (err){callback(err);return}
+		if (err){LOGGER.error(err);return}
 		msg.timestamp = Date.now();
-		db.collection(COLLECTION_NAME).insert(msg,callback);
+		db.collection(COLLECTION_NAME).insert(msg,function(err){
+			if (err){LOGGER.error(err);return}
+		});
 	});
 }
 

@@ -34,63 +34,29 @@ router.get('/view',function(req,res){
 })
 
 router.get('/view/:id',function(req,res){
-	var data = {folders:{},images:{},videos:{}};
-	var path = [];
-	Folders.get(req.params.id,function(err,doc){
-		if (err){res.render('errors/500',{detail:err});return;}
-		data.folders[req.params.id] = doc;
-		async.each(
-			doc.content,
-			function(item,done){
-				Model[item.type].get(item.id,function(err,doc){
-					if (doc.date){
-						doc.dateStr = (new Date(doc.date)).toLocaleString();
-					}
-					data[item.type][item.id]=doc;
-					done(err);
-				})
-			},
-			function(err){
-				if (err){res.render('errors/500',{detail:err});return;}
-				var cur=doc;
-				async.until(
-					function(){return cur.parent==undefined},
-					function(done){
-						Folders.get(cur.parent,function(err,par_doc){
-							if (err){done(err);return;}
-							path.unshift(par_doc);
-							cur=par_doc;
-
-							done();
-						})		
+	Model.getFolderData(
+		{
+			id:req.params.id,
+			key:req.query.key,
+			sens:req.query.sens
+		},
+		function(err,output){
+			if (err){res.render('errors/500',{detail:err});return;}
+			res.render(
+				'admin/storage/view',
+				extend(
+					null,
+					conf.view,
+					{
+						section:"Stockage",
+						action:"Gérer",
+						user:req.user
 					},
-					function(err){
-						if (err){res.render('errors/500',{detail:err});return;}
-						var mainDoc = data.folders[req.params.id];
-						var key = req.query.key || "_id";
-						var sens = req.query.sens || 1;
-						mainDoc.content.sort(sort(data,key,sens));
-						res.render(
-							'admin/storage/view',
-							extend(
-								null,
-								conf.view,
-								{
-									section:"Stockage",
-									action:"Gérer",
-									user:req.user,
-									folder:req.params.id,
-									data: data,
-									data_str: JSON.stringify(data),
-									path:path
-								}
-							)
-						);
-					}
-				);
-			}
-		);
-	})
+					output
+				)
+			);
+		}
+	);
 })
 
 
@@ -123,28 +89,5 @@ function bytesToSize(bytes) {
     return (bytes / Math.pow(1024, i)).toFixed(1) + ' ' + sizes[i];
 };
 
-function sort(data,key,sens){
-	return function(a,b){
-			var A = a.type.toLowerCase();
-     		var B = b.type.toLowerCase();
-     		if (A < B){
-        		return -1;
-     		}else if (A > B){
-       			return  1;
-     		}else{
-     			if (data[a.type][a.id][key] === undefined || data[b.type][b.id][key] === undefined){
-     				return 0;
-     			}
-       			var A = data[a.type][a.id][key].toString().toLowerCase();
-     			var B = data[b.type][b.id][key].toString().toLowerCase();
-     			if (A < B){
-        			return -1*sens;
-     			}else if (A > B){
-       				return  1*sens;
-     			}else{
-       				return 0;
-     			}
-     		}
-		}
-};
+
 module.exports = router;

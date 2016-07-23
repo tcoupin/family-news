@@ -27,3 +27,42 @@ h4.user {
 	max-width: 900px;
 }
 
+.media-glyphicon {
+	display: relative;
+}
+
+.media-glyphicon .glyphicon {
+  position: absolute;
+  top: 30px;
+  left: 30px;
+  font-size: 50px;
+  color: white;
+}
+
+.square {
+	position:relative;
+	overflow:hidden;
+	padding-bottom:100%;
+}
+.square img{
+	position:absolute;
+	height: 100%;
+	object-fit: cover; /* Do not scale the image */
+  	object-position: center; /* Center the image within the element */
+
+}
+
+.content-selected {
+	border-color: #337ab7;
+	border-width: 3px;
+    color: #337ab7;
+}
+
+img.thumbnail {
+	max-height: 200px;
+	max-width: 200px;
+}
+
+div.news-text {
+    white-space: pre;
+}
