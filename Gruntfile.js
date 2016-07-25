@@ -18,6 +18,17 @@ module.exports = function(grunt) {
                 	{expand: true, cwd: 'src/resources', src:'**', dest: 'build/resources/'},
             	]
         	}
+        },
+        compress: {
+        	dist: {
+        		options: {
+        			archive: '<%= pkg.name %>_<%= grunt.template.today("yyyy-mm-dd") %>.zip'
+        		},
+        		expand: true,
+    			cwd: 'build/',
+    			src: ['**/*'],
+    			dest: ''
+        	}
         }
 	});
 
@@ -25,7 +36,9 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-clean');
 	grunt.loadNpmTasks('grunt-package-modules');
 	grunt.loadNpmTasks('grunt-contrib-copy');
+	grunt.loadNpmTasks('grunt-contrib-compress');
+
 
 	grunt.registerTask('default', ['npm-install']);
-	grunt.registerTask('build', ['clean:dist','npm-install', 'copy:dist', 'packageModules:dist']);
+	grunt.registerTask('build', ['clean:dist','npm-install', 'copy:dist', 'packageModules:dist',"compress:dist"]);
 };
