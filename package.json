@@ -26,5 +26,12 @@
     "passport": "^0.3.2",
     "passport-google-oauth": "^1.0.0",
     "path": "^0.12.7"
+  },
+  "devDependencies": {
+    "grunt": "^1.0.1",
+    "grunt-contrib-clean": "^1.0.0",
+    "grunt-contrib-copy": "^1.0.0",
+    "grunt-npm-install": "^0.3.0",
+    "grunt-package-modules": "^0.1.3"
   }
 }
