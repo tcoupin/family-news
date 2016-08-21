@@ -6,7 +6,6 @@ RUN mkdir -p /news
 WORKDIR /news
 COPY package.json /news
 RUN npm install
-VOLUME /news
 VOLUME /news/conf
 ADD src /news
 
