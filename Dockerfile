@@ -9,5 +9,5 @@ RUN npm install && npm install -g forever
 VOLUME /news/conf
 CMD forever src/js/index.js conf/conf.json
 ENV TZ Europe/Paris
-ENV LANG french
+ENV LANG fr_FR
 ADD src /news/src
