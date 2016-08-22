@@ -29,7 +29,7 @@ router.get("/videos/:id",function(req,res){
 })
 
 
-router.get("/videos/:id/thumbnail",function(req,res){
+router.get("/videos/:id/:type",function(req,res){
 	Videos.get(req.params.id,function(err,vdo){
 		if (err){
 			res.status(500).render('errors/500',{detail:err});

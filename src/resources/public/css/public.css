@@ -2,7 +2,6 @@
 	margin-top: 80px;
 }
 
-
 img.brand {
 	width: 20px;
 	height: 20px;
@@ -57,17 +56,27 @@ h4.user {
 
 }
 
-.content-selected {
-	border-color: #337ab7;
-	border-width: 3px;
-    color: #337ab7;
-}
-
 img.thumbnail {
 	max-height: 200px;
 	max-width: 200px;
 }
 
-div.news-text {
+.news-text {
     white-space: pre;
+}
+
+#index-carousel {
+	position: absolute;
+    height: calc(100% - 51px);
+    top: 51px;
+    left: 0;
+    width: 100%;
+}
+#index-carousel .carousel-inner, #index-carousel .item{
+	height: 100%;
+}
+
+.item-img {
+	height: 100%;
+	width: 100%;
 }

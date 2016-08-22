@@ -1,10 +1,32 @@
 extends ../template/public
 
 block content
-	each item in news
-		.panel.panel-default
-			.panel-heading
-				h4 #{item.title} 
-					small #{item.timestampStr}
-			.panel-body
-				.news-text #{item.text}
+	.row
+		.col-sm-12.carousel.slide#index-carousel(data-ride="carousel")
+			ol.carousel-indicators
+				each item,key in news
+					li(data-target="#index-carousel",data-slide-to=key,class=(key==0?'active':''))
+			.carousel-inner(role="listbox")
+				each item,key in news
+					.item(class=(key==0?'active':''))
+						if (item.content != undefined && item.content.length != 0)
+							div.item-img(style="background: url(/files/"+item.content[0].type+"/"+item.content[0].id+"/small);background-size: cover;")
+						else
+							div.item-img(style="background: gray")
+						.carousel-caption
+							h3	#{item.title} 
+								small
+									if (item.badge.images != 0)
+										span.badge
+											span.glyphicon.glyphicon-picture(aria-hidden=true)
+											|  #{item.badge.images}
+									if (item.badge.videos != 0)
+										span.badge
+											span.glyphicon.glyphicon-facetime-video(aria-hidden=true)
+											|  #{item.badge.videos}
+							p.news-text #{item.text}
+								small #{item.timestampStr}
+			a.left.carousel-control(href="#index-carousel", role="button", data-slide="prev")
+				span.glyphicon.glyphicon-chevron-left(aria-hidden="true")
+			a.right.carousel-control(href="#index-carousel", role="button", data-slide="next")
+				span.glyphicon.glyphicon-chevron-right(aria-hidden="true")
