@@ -8,4 +8,5 @@ COPY package.json /news
 RUN npm install && npm install -g forever
 VOLUME /news/conf
 CMD forever src/js/index.js conf/conf.json
+ENV TZ Europe/Paris
 ADD src /news/src
