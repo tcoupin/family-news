@@ -7,6 +7,5 @@ WORKDIR /news
 COPY package.json /news
 RUN npm install && npm install -g forever
 VOLUME /news/conf
-ADD src /news/src
-
 CMD forever src/js/index.js conf/conf.json
+ADD src /news/src
