@@ -1,0 +1,46 @@
+extends main_bootstrap
+
+block theme
+	if (theme != "default")
+		link(href="/public/css/vendor/boostwatch/"+theme+"/bootstrap.min.css", rel="stylesheet")
+	else
+		link(href="/public/css/vendor/bootstrap.min.css", rel="stylesheet")
+
+block css
+	link(href="/public/css/public.css", rel="stylesheet")
+
+block body
+	nav.navbar.navbar-default.navbar-fixed-top
+		.container-fluid
+			.navbar-header
+				button.navbar-toggle.collapsed(type="button",data-toggle="collapse", data-target="#navbar",aria-expanded="false", aria-controls="navbar")
+					span.sr-only Toggle nav
+					span.icon-bar
+					span.icon-bar
+					span.icon-bar
+				a.navbar-brand(href="/") #{title}
+			.navbar-collapse.collapse#navbar
+				ul.nav.navbar-nav
+					li
+						a(href="#") Médias
+					li
+						a(href="#") Notifications
+				ul.nav.navbar-nav.navbar-right
+					li.dropdown
+						a.dropdown-toggle(data-toggle="dropdown",role="button",aria-haspopup="true",aria-expanded="false")
+							h4.user
+								img.img-circle.user(src=user.photos[0].value)
+								| #{user.displayName}
+								span.caret
+						ul.dropdown-menu
+							if (user.isAdmin)
+								li
+									a(href="/admin")
+										span.glyphicon.glyphicon-wrench(aria-hidden=true)
+										|  Administrer
+							li
+								a(href="/login/logout")
+									span.glyphicon.glyphicon-log-out(aria-hidden=true)
+									|  Deconnexion
+	.container#content
+		block content

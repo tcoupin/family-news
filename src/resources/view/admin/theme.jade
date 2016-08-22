@@ -1,0 +1,13 @@
+extends ../template/admin
+
+block content
+	h4 Thème courant : #{theme}
+	row
+		.col-sm-4
+			a.thumbnail(href="/admin/theme/default",class=(theme=='default'?'theme-selected':''))
+				.caption
+					h3 default
+		each item in listTheme
+			.col-sm-4
+				a.thumbnail(href="/admin/theme/"+item,class=(theme==item?'theme-selected':''))
+					img(src="/public/css/vendor/boostwatch/"+item+"/thumbnail.png")

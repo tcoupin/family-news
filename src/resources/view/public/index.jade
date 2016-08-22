@@ -1,0 +1,10 @@
+extends ../template/public
+
+block content
+	each item in news
+		.panel.panel-default
+			.panel-heading
+				h4 #{item.title} 
+					small #{item.timestampStr}
+			.panel-body
+				.news-text #{item.text}

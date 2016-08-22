@@ -2,6 +2,7 @@
 	margin-top: 80px;
 }
 
+
 img.brand {
 	width: 20px;
 	height: 20px;
@@ -69,8 +70,4 @@ img.thumbnail {
 
 div.news-text {
     white-space: pre;
-}
-
-.theme-selected {
-	border-color: red;
 }

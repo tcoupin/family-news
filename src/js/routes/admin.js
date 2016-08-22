@@ -17,4 +17,7 @@ router.use('/storage',storage);
 var news = require('./admin/news');
 router.use('/news',news);
 
+var theme = require('./admin/theme');
+router.use('/theme',theme);
+
 module.exports = router;

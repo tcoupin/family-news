@@ -4,6 +4,7 @@ var Folders = require('./folders');
 var Videos = require('./videos');
 var Images = require('./images');
 var Messages = require('./messages');
+var Conf = require('./conf');
 var News = require('./news');
 var async = require('async');
 var extend = require('extend');
@@ -116,7 +117,8 @@ var Model = {
 	videos: Videos,
 	messages: Messages,
 	news: News,
-	getFolderData: getFolderData
+	getFolderData: getFolderData,
+	conf: Conf
 }
 
 module.exports = Model;

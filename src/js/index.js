@@ -23,8 +23,18 @@ var LOGGER=require("log4js").getLogger("main");
 LOGGER.info("Début du log");
 global.conf = JSON.parse(fs.readFileSync(confFile));
 
+var model = require('./model');
+var Conf = model.conf;
 
-var User = require('./model/users');
+Conf.get("theme",function(err,result){
+	if (result === null){
+		global.conf.view.theme = "default";
+	} else {
+		global.conf.view.theme = result;
+	}
+})
+
+var User = model.users;
 var acl = require('./middle/acl');
 
 var app = express();
@@ -88,7 +98,7 @@ app.use('/login',require('./routes/login'));
 app.use(acl.needUser());
 app.use(acl.needValidUser());
 app.use(acl.needRole('view'));
-app.get('/',function(req,res){res.json(req.user);})
+app.use(require('./routes/public'));
 app.use('/files',require('./routes/files'));
 
 app.use('/admin',acl.needRole('admin'));

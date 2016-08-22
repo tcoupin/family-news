@@ -59,16 +59,7 @@ router.get('/',function(req,res){
 			res.render('errors/500',{detail:err});
 			return;
 		}
-		for (var i in results.news){
-			results.news[i].timestampStr = (new Date(results.news[i].timestamp)).toLocaleString();
-			results.news[i].badge = {images:0,videos:0,comments:0};
-			if (!results.news[i].comment){
-				results.news[i].badge.comments = -1;
-			}
-			for (var j in results.news[i].content){
-				results.news[i].badge[results.news[i].content[j].type]++;
-			}
-		}
+		
 		var pages=[];
 		for (var i=0;i<results.count;i+=nb){
 			pages.push({start: i, active:(Math.abs(i-start)<nb)});
