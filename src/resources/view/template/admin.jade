@@ -1,4 +1,4 @@
-extends main
+extends main_bootstrap
 
 block css
 	link(href="/public/css/admin.css", rel="stylesheet")
@@ -52,7 +52,7 @@ block body
 							li
 								a(href="/") Retour au site
 							li
-								a(href="/login/logout") Deconnexion
+								a(href="/login/logout") Deconnexion  
 									span.glyphicon.glyphicon-log-out(aria-hidden=true)
 	.container#content
 		h2 #{section} 

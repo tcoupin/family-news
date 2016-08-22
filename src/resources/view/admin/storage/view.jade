@@ -63,7 +63,7 @@ block content
 			each item in data['folders'][folder].content
 				tr
 					td
-						if (data[item.type][item.id].news == undefined || data[item.type][item.id].news.length == 0)
+						if (item.type != 'folders' && (data[item.type][item.id].news == undefined || data[item.type][item.id].news.length == 0) || item.type == 'folders' && (data[item.type][item.id].content == undefined || data[item.type][item.id].content.length == 0))
 							input.select-item(type='checkbox',data-type="#{item.type}",data-id="#{item.id}")
 						else
 							input.disabled(type='checkbox')
