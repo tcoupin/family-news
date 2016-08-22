@@ -2,9 +2,11 @@ FROM node
 MAINTAINER Thibault Coupin <thibault.coupin@gmail.com>
 
 RUN apt-get update && apt-get install -y imagemagick
-RUN mkdir -p /usr/src/app
-WORKDIR /usr/src/app
-COPY package.json /usr/src/app/
-RUN npm install
+RUN mkdir -p /news
+WORKDIR /news
+COPY package.json /news
+RUN npm install && npm install -g forever
+VOLUME /news/conf
+ADD src /news/src
 
-CMD npm start
+CMD forever src/js/index.js conf/conf.json

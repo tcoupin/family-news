@@ -213,9 +213,9 @@ $(function(){
 		if (type == 'all'){
 			$("input.select-item").prop("checked",$(this).prop('checked'));
 		}
-		$("button[data-target=#deleteItem]").prop('disabled',($("input.select-item:checked[data-type!=all]").length == 0));
+		$("button[data-target='#deleteItem']").prop('disabled',($("input.select-item:checked[data-type!=all]").length == 0));
 	})
-	$("button[data-target=#deleteItem]").prop('disabled',($("input.select-item:checked[data-type!=all]").length == 0));
+	$("button[data-target='#deleteItem']").prop('disabled',($("input.select-item:checked[data-type!=all]").length == 0));
 
 	$("#deleteItem button.btn-submit").click(function(){
 		$("input.select-item:checked[data-type!=all]").each(function(){

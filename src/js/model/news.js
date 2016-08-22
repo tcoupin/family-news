@@ -55,7 +55,22 @@ News.getSome = function(start,nb,callback){
 	LOGGER.debug("getSome",start,nb);
 	mongodb.MongoClient.connect(conf.mongodb, function(err, db) {
 		if (err){callback(err);return}
-		db.collection(COLLECTION_NAME).find().sort([['timestamp',-1]]).skip(start).limit(nb).toArray(callback);
+		db.collection(COLLECTION_NAME).find().sort([['timestamp',-1]]).skip(start).limit(nb).toArray(
+			function(err,news){
+				if (err){callback(err);return;}
+				for (var i in news){
+					news[i].timestampStr = (new Date(news[i].timestamp)).toLocaleString();
+					news[i].badge = {images:0,videos:0,comments:0};
+					if (!news[i].comment){
+						news[i].badge.comments = -1;
+					}
+					for (var j in news[i].content){
+						news[i].badge[news[i].content[j].type]++;
+					}
+				}
+				callback(null,news);
+			}
+		);
 	});	
 }
 
@@ -92,7 +107,7 @@ News.addContent = function(id,content,callback){
 				if (content.type == "videos"){
 					Videos.addNews(content.id,id,callback);
 				} else if (content.type == "images"){
-					Videos.addNews(content.id,id,callback);
+					Images.addNews(content.id,id,callback);
 				} else {
 					callback("unknow type "+content.type);
 				}
