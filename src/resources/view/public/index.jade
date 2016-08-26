@@ -1,5 +1,9 @@
 extends ../template/public
 
+block script
+	script(src="/public/js/vendor/jquery.mobile.min.js")
+	script(src="/public/js/public_index.js")
+
 block content
 	.row
 		.col-sm-12.carousel.slide#index-carousel(data-ride="carousel")

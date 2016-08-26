@@ -98,6 +98,7 @@ app.use('/login',require('./routes/login'));
 app.use(acl.needUser());
 app.use(acl.needValidUser());
 app.use(acl.needRole('view'));
+app.use(require("./middle/isAdmin"));
 app.use(require('./routes/public'));
 app.use('/files',require('./routes/files'));
 

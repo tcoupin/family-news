@@ -1,0 +1,23 @@
+each item in news
+	.panel.panel-default
+		.panel-heading #{item.timestampStr} 
+			if (item.badge.images != 0)
+				span.badge.pull-right
+					span.glyphicon.glyphicon-picture(aria-hidden=true)
+					|  #{item.badge.images}
+			if (item.badge.videos != 0)
+				span.badge.pull-right
+					span.glyphicon.glyphicon-facetime-video(aria-hidden=true)
+					|  #{item.badge.videos}
+			if (item.badge.comments > 0)
+				span.badge.pull-right
+					span.glyphicon.glyphicon-comment(aria-hidden=true)
+					|  #{itnews.badge.comments}
+		.panel-body
+			.media
+				.media-body
+					h4.media-heading #{item.title}
+				.media-right
+					if (item.content != undefined && item.content.length != 0)
+						a(href="#")
+							img.media-object.img-rounded.thumbnail(src="/files/"+item.content[0].type+"/"+item.content[0].id+"/thumbnail")

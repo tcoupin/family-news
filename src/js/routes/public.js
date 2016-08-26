@@ -5,7 +5,6 @@ var Model = require('../model');
 var router=express.Router();
 
 router.get('/',function(req,res){
-	req.user.isAdmin =(req.user.role.indexOf('admin')!=-1);
 	async.parallel(
 		{
 			news: function(done){
@@ -19,5 +18,10 @@ router.get('/',function(req,res){
 		}
 	);
 });
+
+
+var news = require('./public/news');
+router.use('/news',news);
+
 
 module.exports = router;
