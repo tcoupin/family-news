@@ -1,5 +1,6 @@
 #content {
 	margin-top: 80px;
+	max-width: 900px;
 }
 
 img.brand {
@@ -25,10 +26,6 @@ h4.user {
 
 .navbar > .container-fluid {
 	max-width: 1000px;
-}
-
-#content {
-	max-width: 900px;
 }
 
 .media-glyphicon {
@@ -59,6 +56,9 @@ h4.user {
 img.thumbnail {
 	max-height: 200px;
 	max-width: 200px;
+}
+img.small {
+	max-height: 400px;
 }
 
 .news-text {

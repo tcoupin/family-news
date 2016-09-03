@@ -1,6 +1,6 @@
 each item in news
 	.panel.panel-default
-		.panel-heading #{item.timestampStr} 
+		.panel-heading #{item.title}
 			if (item.badge.images != 0)
 				span.badge.pull-right
 					span.glyphicon.glyphicon-picture(aria-hidden=true)
@@ -16,8 +16,9 @@ each item in news
 		.panel-body
 			.media
 				.media-body
-					h4.media-heading #{item.title}
+					h4.media-heading #{item.text}
 				.media-right
 					if (item.content != undefined && item.content.length != 0)
 						a(href="#")
 							img.media-object.img-rounded.thumbnail(src="/files/"+item.content[0].type+"/"+item.content[0].id+"/thumbnail")
+		.panel-footer #{item.timestampStr}

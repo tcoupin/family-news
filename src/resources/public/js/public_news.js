@@ -16,7 +16,12 @@ function nextPage(){
 		offset = $('.panel:last').offset();
 		$('body').scrollspy('refresh');
 	})
-	
+}
+
+function hashOffset(){
+	if (window.location.hash != "" && window.location.hash != "#"){
+		scrollBy(0,-$("#content").css('margin-top').replace("px",""))
+	}
 }
 
 var offset;
@@ -30,5 +35,7 @@ $(function(){
 			nextPage();
 		}
 	});
+	$(window).on('hashchange', hashOffset)
+  
 
 });
