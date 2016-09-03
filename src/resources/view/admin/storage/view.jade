@@ -24,7 +24,7 @@ block content
 				.btn-group(role="group")
 					button.btn.btn-default.dropdown-toggle(href="#",type="button",data-toggle="dropdown",aria-haspopup="true",aria-expanded="false")
 						span.glyphicon.glyphicon-plus-sign(aria-hidden=true)
-						|  Ajouter
+						|  Ajouter 
 						span.caret
 					ul.dropdown-menu
 						li
@@ -81,9 +81,9 @@ block content
 						if (item.type == 'folders')
 							a(href=item.id) #{data[item.type][item.id].name}
 						else
-							a.show-content(href="#",data-id="#{item.id}",data-type="#{item.type}") #{data[item.type][item.id].name} 
+							a.show-content(href="##{item.type}/#{item.id}",data-id="#{item.id}",data-type="#{item.type}") #{data[item.type][item.id].name} 
 								if (item.type == 'videos' && data.videos[item.id].files.thumbnail == undefined)
-									span.glyphicon.glyphicon-warning-sign(aria-hidden=true, data-toggle="tooltip" data-placement="right",title="Cliquer pour ajouter la miniature")				
+									span.glyphicon.glyphicon-warning-sign(aria-hidden=true, data-toggle="tooltip" data-placement="right",title="Cliquer pour ajouter la miniature")
 
 					td 
 						if (item.type == 'folders')
@@ -153,7 +153,7 @@ block content
 						button.btn.btn-default(type="button",data-dismiss="modal") Non
 						button.btn.btn-primary.btn-submit(type="button") Envoyer
 					.progress
-						.progress-bar.progress-bar-info(role="progressbar",aria-valuenow="0",aria-valuemin="0" aria-valuemax="100",style="min-width: 2em;width: 0%") 0%			
+						.progress-bar.progress-bar-info(role="progressbar",aria-valuenow="0",aria-valuemin="0" aria-valuemax="100",style="min-width: 2em;width: 0%") 0%
 
 
 	.modal.fade#showContent(role="dialog")
@@ -162,3 +162,7 @@ block content
 				.modal-header
 				.modal-body
 				.modal-footer
+					.alert.alert-danger(role="alert") Oups ça n'a pas fonctionné...
+					.buttons
+					.progress
+						.progress-bar.progress-bar-info.progress-bar-striped.active(role="progressbar",aria-valuenow="1000",aria-valuemin="0" aria-valuemax="100",style="min-width: 2em;width: 100%") 

@@ -85,6 +85,72 @@ Images.get = function(id,callback){
 	});
 }
 
+Images.rotate = function(id, angle, callback){
+	LOGGER.debug("rotate "+id+" angle "+angle);
+	async.waterfall(
+		[
+			function(done){
+				mongodb.MongoClient.connect(conf.mongodb, done);
+			},
+			function(db,done){
+				Images.get(id,function(err,img){done(err,db,img)})
+			},
+			function(db,img,done){
+				LOGGER.trace("Rotation image brute");
+				var old_id = img.files.raw;
+				var rotate = im().op('rotate',angle).quality(90);
+				Files.get(img.files.raw,function(err,inputStream){
+					if (err){done(err);return;}
+					Files.new(img.name,function(err,outputStream){
+						inputStream.pipe(rotate).pipe(outputStream);
+						outputStream.on('finish',function(){
+							db.collection(COLLECTION_NAME).updateOne({_id: img._id},{$set: {'files.raw': outputStream.id}},function(err){
+								if (err){done(err);return;}
+								Files.delete(old_id,function(err){done(err,db,img)})
+							})
+						})
+					})
+				})
+			},
+			function(db,img,done){
+				LOGGER.trace("Rotation image réduite");
+				var old_id = img.files.small;
+				var rotate = im().op('rotate',angle).quality(90);
+				Files.get(img.files.small,function(err,inputStream){
+					if (err){done(err);return;}
+					Files.new(img.name,function(err,outputStream){
+						inputStream.pipe(rotate).pipe(outputStream);
+						outputStream.on('finish',function(){
+							db.collection(COLLECTION_NAME).updateOne({_id: img._id},{$set: {'files.small': outputStream.id}},function(err){
+								if (err){done(err);return;}
+								Files.delete(old_id,function(err){done(err,db,img)})
+							})
+						})
+					})
+				})
+			},
+			function(db,img,done){
+				LOGGER.trace("Rotation image miniature");
+				var old_id = img.files.thumbnail;
+				var rotate = im().op('rotate',angle).quality(90);
+				Files.get(img.files.thumbnail,function(err,inputStream){
+					if (err){done(err);return;}
+					Files.new(img.name,function(err,outputStream){
+						inputStream.pipe(rotate).pipe(outputStream);
+						outputStream.on('finish',function(){
+							db.collection(COLLECTION_NAME).updateOne({_id: img._id},{$set: {'files.thumbnail': outputStream.id}},function(err){
+								if (err){done(err);return;}
+								Files.delete(old_id,function(err){done(err,db,img)})
+							})
+						})
+					})
+				})
+			}
+		],
+		callback
+	);
+}
+
 Images.addNews = function(id,id_news,callback){
 	LOGGER.debug("addNews",id,id_news);
 

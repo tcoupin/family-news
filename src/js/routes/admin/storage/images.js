@@ -54,4 +54,24 @@ router.delete("/:id",function(req,res){
 	});
 })
 
+router.post("/:id/rotate/direct",function(req,res){
+	Images.rotate(req.params.id,90,function(err){
+		if (err){
+			res.render('errors/500',{detail:err});
+			return;
+		}
+		res.end();
+	});
+})
+
+router.post("/:id/rotate/reverse",function(req,res){
+	Images.rotate(req.params.id,-90,function(err){
+		if (err){
+			res.render('errors/500',{detail:err});
+			return;
+		}
+		res.end();
+	});
+})
+
 module.exports = router;

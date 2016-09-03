@@ -18,7 +18,9 @@ Conf.get = function(id,callback){
 	LOGGER.debug("get",id);
 	mongodb.MongoClient.connect(conf.mongodb, function(err, db) {
 		if (err){callback(err);return}
-		db.collection(COLLECTION_NAME).findOne({id: id},callback);
+		db.collection(COLLECTION_NAME).findOne({id: id},function(err,obj){
+			callback(err,obj.val);
+		});
 	});	
 }
 
@@ -26,7 +28,7 @@ Conf.set = function(id,val,callback){
 	LOGGER.debug("set",id);
 	mongodb.MongoClient.connect(conf.mongodb, function(err, db) {
 		if (err){callback(err);return}
-		db.collection(COLLECTION_NAME).updateOne({id: id},{val: val},{upsert:true}, callback);
+		db.collection(COLLECTION_NAME).updateOne({id: id},{id:id, val: val},{upsert:true}, callback);
 	});	
 }
 

@@ -2,6 +2,8 @@ extends main_bootstrap
 
 block css
 	link(href="/public/css/admin.css", rel="stylesheet")
+	link(href="/public/css/vendor/font-awesome.min.css", rel="stylesheet")
+
 
 block body
 	nav.navbar.navbar-default.navbar-fixed-top
@@ -46,8 +48,9 @@ block body
 							li
 								a(href="/") Retour au site
 							li
-								a(href="/login/logout") Deconnexion  
+								a(href="/login/logout") 
 									span.glyphicon.glyphicon-log-out(aria-hidden=true)
+									|  Deconnexion 
 	.container#content
 		h2 #{section} 
 			small #{action}
