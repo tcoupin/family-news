@@ -19,6 +19,7 @@ Conf.get = function(id,callback){
 	mongodb.MongoClient.connect(conf.mongodb, function(err, db) {
 		if (err){callback(err);return}
 		db.collection(COLLECTION_NAME).findOne({id: id},function(err,obj){
+			obj = obj || {};
 			callback(err,obj.val);
 		});
 	});	
