@@ -2,9 +2,7 @@ extends ../template/public
 
 block script
 	script(src="/public/js/public_news.js")
+	script(src="/public/js/vendor/freewall.js")
 
 block content
-	.row
-		.col-md-9#news-list(role="main",data-spy="scroll",data-target="#news-menu")
-		nav.col-md-3.hidden-print.hidden-sm.hidden-xs#news-menu(role="complementary")
-			ul.nav.nav-pills.nav-stacked.affix
+	.col-sm-12#fwContent

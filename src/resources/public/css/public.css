@@ -47,17 +47,18 @@ h4.user {
 }
 .square img{
 	position:absolute;
-	height: 100%;
+	min-height: 100%;
+	min-width: 100%;
 	object-fit: cover; /* Do not scale the image */
   	object-position: center; /* Center the image within the element */
 
 }
 
-img.thumbnail {
-	max-height: 200px;
-	max-width: 200px;
+.img-thumbnail {
+	max-height: 200px !important;
+	max-width: 200px !important;
 }
-img.small {
+.img-small {
 	max-height: 400px;
 }
 
@@ -79,4 +80,9 @@ img.small {
 .item-img {
 	height: 100%;
 	width: 100%;
+}
+
+.media-item {
+	min-height: 200px;
+	min-width: 200px;
 }

@@ -12,7 +12,7 @@ block content
 					li(data-target="#index-carousel",data-slide-to=key,class=(key==0?'active':''))
 			.carousel-inner(role="listbox")
 				each item,key in news
-					.item(class=(key==0?'active':''))
+					a(href="/news/"+item._id).item(class=(key==0?'active':''))
 						if (item.content != undefined && item.content.length != 0)
 							div.item-img(style="background: url(/files/"+item.content[0].type+"/"+item.content[0].id+"/small);background-size: cover;")
 						else

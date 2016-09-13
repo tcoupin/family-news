@@ -1,24 +1,24 @@
 each item in news
-	.panel.panel-default
-		.panel-heading #{item.title}
-			if (item.badge.images != 0)
-				span.badge.pull-right
-					span.glyphicon.glyphicon-picture(aria-hidden=true)
-					|  #{item.badge.images}
-			if (item.badge.videos != 0)
-				span.badge.pull-right
-					span.glyphicon.glyphicon-facetime-video(aria-hidden=true)
-					|  #{item.badge.videos}
-			if (item.badge.comments > 0)
-				span.badge.pull-right
-					span.glyphicon.glyphicon-comment(aria-hidden=true)
-					|  #{itnews.badge.comments}
-		.panel-body
-			.media
-				.media-body
-					h4.media-heading #{item.text}
-				.media-right
-					if (item.content != undefined && item.content.length != 0)
-						a(href="#")
-							img.media-object.img-rounded.thumbnail(src="/files/"+item.content[0].type+"/"+item.content[0].id+"/thumbnail")
-		.panel-footer #{item.timestampStr}
+	a(href="/news/"+item._id).thumbnail.news-item
+		if (item.content != undefined && item.content.length != 0)
+			.square
+				img.img-rounded.img-thumbnail(src="/files/"+item.content[0].type+"/"+item.content[0].id+"/thumbnail")
+		.caption
+			h3 #{item.title}
+			p #{item.text}
+			h4(align="center")
+				small #{item.timestampStr}
+			h4(align="center")
+				small
+					if (item.badge.images != 0)
+						span.badge
+							span.glyphicon.glyphicon-picture(aria-hidden=true)
+							|  #{item.badge.images}
+					if (item.badge.videos != 0)
+						span.badge
+							span.glyphicon.glyphicon-facetime-video(aria-hidden=true)
+							|  #{item.badge.videos}
+					if (item.badge.comments > 0)
+						span.badge
+							span.glyphicon.glyphicon-comment(aria-hidden=true)
+							|  #{itnews.badge.comments}

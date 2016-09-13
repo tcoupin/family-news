@@ -21,12 +21,12 @@
     "imagemagick-stream": "^4.1.0",
     "jade": "^1.11.0",
     "log4js": "^0.6.37",
+    "moment": "^2.14.1",
     "mongodb": "^2.1.18",
     "multer": "^1.1.0",
     "passport": "^0.3.2",
     "passport-google-oauth": "^1.0.0",
     "path": "^0.12.7"
   },
-  "devDependencies": {
-  }
+  "devDependencies": {}
 }

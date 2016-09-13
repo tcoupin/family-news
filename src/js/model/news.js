@@ -1,5 +1,6 @@
 var mongodb = require('mongodb');
 var async = require('async');
+var moment = require('moment');
 
 var COLLECTION_NAME="news"
 var LOGGER=require("log4js").getLogger(COLLECTION_NAME);
@@ -59,7 +60,8 @@ News.getSome = function(start,nb,callback){
 			function(err,news){
 				if (err){callback(err);return;}
 				for (var i in news){
-					news[i].timestampStr = (new Date(news[i].timestamp)).toLocaleString();
+					//news[i].timestampStr = (new Date(news[i].timestamp)).toLocaleString();
+					news[i].timestampStr = moment(news[i].timestamp).locale('fr').format('DD/MM/YY HH:mm')
 					news[i].badge = {images:0,videos:0,comments:0};
 					if (!news[i].comment){
 						news[i].badge.comments = -1;
@@ -76,6 +78,9 @@ News.getSome = function(start,nb,callback){
 
 News.get = function(id,callback){
 	LOGGER.debug("get",id);
+	if ((typeof id) == 'string' && id.length != 24){
+		id = "000000000000000000000000";
+	}
 	mongodb.MongoClient.connect(conf.mongodb, function(err, db) {
 		if (err){callback(err);return}
 		db.collection(COLLECTION_NAME).findOne({_id: new mongodb.ObjectId(id)},callback);

@@ -142,13 +142,14 @@ function dataURItoBlob(dataURI) {
 }
 
 function showContent(type,id){
+	console.log("show ",type,id)
 	$("#showContent .modal-header").append("<h4>"+data[type][id].name+" <small>"+data[type][id].dateStr+"</small></h4>")
 	if (type == 'images'){
-		$("#showContent .modal-body").append("<img class='center-block img-responsive small' src='/files/images/"+id+"/small'/>");
-		$("#showContent .modal-footer .buttons").append("<div class='btn-group' role='group'>");
-		$("#showContent .modal-footer .buttons").append("<button class='btn btn-default image-rotate' href='#' type='button' data-id='"+id+"' data-sens='reverse'><i class='fa fa-rotate-left' aria-hidden='true'></i></button>");
-		$("#showContent .modal-footer .buttons").append("<button class='btn btn-default image-rotate' href='#' type='button' data-id='"+id+"' data-sens='direct'><i class='fa fa-rotate-right' aria-hidden='true'></i></button>");
-		$("#showContent .modal-footer .buttons").append("</div>");
+		$("#showContent .modal-body").append("<img class='center-block img-responsive img-small' src='/files/images/"+id+"/small'/>");
+		$("#showContent .buttons").append("<div class='btn-group' role='group'>");
+		$("#showContent .buttons").append("<button class='btn btn-default image-rotate' href='#' type='button' data-id='"+id+"' data-sens='reverse'><i class='fa fa-rotate-left' aria-hidden='true'></i></button>");
+		$("#showContent .buttons").append("<button class='btn btn-default image-rotate' href='#' type='button' data-id='"+id+"' data-sens='direct'><i class='fa fa-rotate-right' aria-hidden='true'></i></button>");
+		$("#showContent .buttons").append("</div>");
 		$(".image-rotate").click(function(){
 			$("#showContent .alert").hide();
 			$("#showContent .buttons").hide();
@@ -173,7 +174,7 @@ function showContent(type,id){
 	} else if (type == 'videos'){
 		$("#showContent .modal-body").append("<video class='center-block img-responsive' src='/files/videos/"+id+"' controls poster='/files/videos/"+id+"/thumbnail'></video>");
 		if (data.videos[id].files.thumbnail === undefined){
-			$("#showContent .modal-footer .buttons").append("<button type='button' class='btn btn-danger video-make-snap' data-id='"+id+"'>Enregistrer la miniature</button>")
+			$("#showContent .buttons").append("<button type='button' class='btn btn-danger video-make-snap' data-id='"+id+"'>Enregistrer la miniature</button>")
 			$(".video-make-snap").click(function(){
 				$("#showContent .alert").hide();
 				$("#showContent .buttons").hide();
@@ -278,7 +279,7 @@ $(function(){
 	});
 
 	$("#showContent").on('hide.bs.modal',function(){
-		$("#showContent .modal-header,#showContent .modal-body,#showContent .modal-footer").empty();
+		$("#showContent .modal-header,#showContent .modal-body,#showContent .buttons,#showContent .alert").empty();
 		window.location.hash="#"
 	})
 	$("a.show-content").click(function(){
