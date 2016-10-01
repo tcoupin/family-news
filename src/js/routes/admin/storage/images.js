@@ -28,17 +28,21 @@ router.get("/:id",function(req,res){
 })
 
 router.post('/:id/upload',upload.array('file'),function(req,res){
+	var files_ids=[]
 	async.each(
 		req.files,
 		function(file,done){
-			Images.new(file.originalname, file.gridfsEntry._id, req.params.id, done);
+			Images.new(file.originalname, file.gridfsEntry._id, req.params.id, function(err,id){
+				files_ids.push(id);
+				done(err);
+			});
 		},
 		function(err){
 			if (err){
 				res.render('errors/500',{detail:err});
 				return;
 			}
-			res.end();
+			res.json(files_ids);
 		}
 	);
 })

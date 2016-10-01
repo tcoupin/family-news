@@ -13,12 +13,12 @@ var router=express.Router();
 router.post('/new',bodyParser.urlencoded(),function(req,res){
 	var news = req.body;
 	news.comment=(news.comment===undefined?false:true);
-	News.new(news,function(err){
+	News.new(news,function(err,id){
 		if (err){
 			res.render('errors/500',{detail:err});
 			return;
 		}
-		res.redirect('/admin/news?step=newscreated');
+		res.redirect('/admin/news/'+id+'/media');
 	})
 })
 router.post('/:id',bodyParser.urlencoded(),function(req,res){

@@ -42,4 +42,18 @@ router.get("/list_raw",function(req,res){
 	});
 })
 
+router.get("/:id",function(req,res){
+	News.get(req.params.id, function(err,news){
+		if (err){
+			res.render('errors/500',{detail:err});
+			return;
+		}
+		if (news === null){
+			res.render('errors/404',{detail:err});
+			return;	
+		}
+		res.render('public/news_item',extend(null,conf.view,{user:req.user, news:news}));
+	});
+})
+
 module.exports = router;

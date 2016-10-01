@@ -32,10 +32,15 @@ News.new = function(msg,callback){
 	LOGGER.debug("new");
 	mongodb.MongoClient.connect(conf.mongodb, function(err, db) {
 		if (err){callback(err);return}
-		msg.timestamp = Date.now();
+		if (msg.date !== undefined){
+			msg.timestamp = new Date(msg.date);
+			delete msg.date;
+		} else {
+			msg.timestamp = Date.now();
+		}
 		msg.content=[],
 		db.collection(COLLECTION_NAME).insertOne(msg,function(err,opsResult){
-			callback(err);
+			callback(err, opsResult.insertedId.toString());
 			Messages.new({type:"news",action:"new",news_id:opsResult.insertedId.toString()});
 		});
 	});
@@ -83,7 +88,13 @@ News.get = function(id,callback){
 	}
 	mongodb.MongoClient.connect(conf.mongodb, function(err, db) {
 		if (err){callback(err);return}
-		db.collection(COLLECTION_NAME).findOne({_id: new mongodb.ObjectId(id)},callback);
+		db.collection(COLLECTION_NAME).findOne({_id: new mongodb.ObjectId(id)},
+			function(err,news){
+				if (err){callback(err);return}
+				news.timestampStr = moment(news.timestamp).locale('fr').format('DD/MM/YY HH:mm');
+				callback(err,news);
+			}
+		);
 	});	
 }
 

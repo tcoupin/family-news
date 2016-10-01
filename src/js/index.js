@@ -27,7 +27,7 @@ var model = require('./model');
 var Conf = model.conf;
 
 Conf.get("theme",function(err,result){
-	if (result === null){
+	if (result === null || result === undefined){
 		global.conf.view.theme = "default";
 	} else {
 		global.conf.view.theme = result;
@@ -95,6 +95,7 @@ app.use('/public', express.static(path.resolve(__dirname,'../resources/public'))
 
 app.use('/login',require('./routes/login'));
 
+app.use(require("./middle/adminToken"));
 app.use(acl.needUser());
 app.use(acl.needValidUser());
 app.use(acl.needRole('view'));

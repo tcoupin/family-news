@@ -1,0 +1,16 @@
+extends ../template/public
+
+block script
+	script(src="/public/js/public_news_item.js")
+
+
+block content
+	#media.col-md-8
+		each item in news.content
+			.media-item.thumbnail(style="background: url(/files/"+item.type+"/"+item.id+"/small);background-size: cover;")
+	.col-md-4
+		h4(align="center")
+			small #{news.timestampStr}
+		h3 #{news.title}
+		p #{news.text}
+		#{JSON.stringify(news)}
