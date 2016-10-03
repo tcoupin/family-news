@@ -17,6 +17,7 @@
     "express": "^4.14.0",
     "express-session": "^1.13.0",
     "extend": "^3.0.0",
+    "get-folder-size": "^1.0.0",
     "gridfs-storage-engine": "^0.2.4",
     "imagemagick-stream": "^4.1.0",
     "jade": "^1.11.0",

@@ -9,5 +9,7 @@
 		"client_secret": "YOUR_GOOGLE_CLIENT_SECRET"
 	},
 	"admin_token": "foobar",
-	"mongodb":"mongodb://127.0.0.1:27017/news"
+	"mongodb":"mongodb://127.0.0.1:27017/news",
+	"data_path": "mongodb://127.0.0.1:27017/news"
+	}
 }

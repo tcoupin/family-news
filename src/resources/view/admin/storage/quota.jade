@@ -3,22 +3,18 @@ extends ../../template/admin
 block content
 	.row
 		.col-sm-4
-			h3 Stockage utile 
-				span.label.label-info #{stats[0].chunks.size}
-			hr
-		.col-sm-4
 			h3 Stockage brut 
-				span.label.label-info #{stats[0].chunks.storageSize}
+				span.label.label-info #{stats[0].size}
 			hr
 		.col-sm-4
 			h3 Fichiers 
-				span.label.label-info #{stats[0].files.count}
+				span.label.label-info #{stats[0].count}
 			hr
-	.row
 		.col-sm-4
 			h3 Dossiers 
 				span.label.label-info #{stats[1].count}
 			hr
+	.row
 		.col-sm-4
 			h3 Images 
 				span.label.label-info #{stats[2].count}

@@ -48,7 +48,7 @@ Folders.get = function(id,callback){
 Folders.getRoot = function(callback){
 	LOGGER.debug("getRoot")
 	mongodb.MongoClient.connect(conf.mongodb, function(err, db) {
-		db.collection(COLLECTION_NAME).findOne({parent_id:undefined},function(err,results){
+		db.collection(COLLECTION_NAME).findOne({parent:undefined},function(err,results){
 			LOGGER.trace("Root id is "+results._id)
 			Folders.get(results._id.toString(),callback);
 		})

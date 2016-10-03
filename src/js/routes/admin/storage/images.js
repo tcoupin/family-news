@@ -4,12 +4,11 @@ var extend = require('extend');
 var router=express.Router();
 
 
-var multer = require('multer');
-var storage = require('gridfs-storage-engine')({url: conf.mongodb});
-var upload = multer({ storage: storage });
-
 var async = require('async');
-var Images = require('../../../model/index').images;
+var Model = require('../../../model/index');
+var Images = Model.images;
+
+var Files = Model.files;
 
 var router=express.Router();
 
@@ -27,12 +26,12 @@ router.get("/:id",function(req,res){
 	});
 })
 
-router.post('/:id/upload',upload.array('file'),function(req,res){
+router.post('/:id/upload',Files.uploadArray('file'),function(req,res){
 	var files_ids=[]
 	async.each(
 		req.files,
 		function(file,done){
-			Images.new(file.originalname, file.gridfsEntry._id, req.params.id, function(err,id){
+			Images.new(file.originalname, file._id, req.params.id, function(err,id){
 				files_ids.push(id);
 				done(err);
 			});

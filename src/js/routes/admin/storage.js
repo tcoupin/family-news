@@ -74,8 +74,7 @@ router.get('/quota',function(req,res){
 				res.render('errors/500',{detail:err});
 				return;
 			}
-			results[0].chunks.size = bytesToSize(results[0].chunks.size);
-			results[0].chunks.storageSize = bytesToSize(results[0].chunks.storageSize);
+			results[0].size = bytesToSize(results[0].size);
 			res.render('admin/storage/quota',extend(null,conf.view,{section:"Stockage", action:"Quota",user:req.user, stats: results}));
 		}
 	)

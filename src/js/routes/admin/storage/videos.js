@@ -1,12 +1,13 @@
 var express = require('express');
 var extend = require('extend');
 
-var multer = require('multer');
-var storage = require('gridfs-storage-engine')({url: conf.mongodb});
-var upload = multer({ storage: storage });
+
 
 var async = require('async');
-var Videos = require('../../../model/index').videos;
+var Model = require('../../../model/index');
+var Videos = Model.videos;
+
+var Files = Model.files;
 
 var router=express.Router();
 
@@ -24,11 +25,11 @@ router.get("/:id",function(req,res){
 	});
 })
 
-router.post('/:id/upload',upload.array('file'),function(req,res){
+router.post('/:id/upload',Files.uploadArray('file'),function(req,res){
 	async.each(
 		req.files,
 		function(file,done){
-			Videos.new(file.originalname, file.gridfsEntry._id, req.params.id, done);
+			Videos.new(file.originalname, file._id, req.params.id, done);
 		},
 		function(err){
 			if (err){
@@ -40,9 +41,9 @@ router.post('/:id/upload',upload.array('file'),function(req,res){
 	);
 })
 
-router.post('/:id/thumbnail',upload.single('file'),function(req,res){
+router.post('/:id/thumbnail',Files.uploadSingle('file'),function(req,res){
 	console.log(Object.keys(req.body))
-	Videos.setThumbnail(req.params.id,req.file.gridfsEntry._id,function(err){
+	Videos.setThumbnail(req.params.id,req.file._id,function(err){
 		if (err){
 			res.render('errors/500',{detail:err});
 			return;
